@@ -49,14 +49,14 @@ const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
  * createAugmented.created(augmented) // true
  * ```
  *
- * @param {function} fn - a factory function that takes any number of
- *     arguments and returns an object
+ * @param {function(...*):object} fn - a factory function that takes any
+ *     number of arguments and returns an object
  * @param {string} [prop='created'] - the name of the property added to
  *     the provided factory function. This property is a function that
  *     takes an object and returns `true` if the factory function
  *     created the object or `false` if it didn't.
- * @returns {function} - the same factory function, augmented with the
- *     tracking method.
+ * @returns {function(...*):object} - the same factory function,
+ *     augmented with the tracking method.
  */
 export function trackedFactory(fn, prop = 'created') {
   const creations = new WeakSet()
@@ -83,10 +83,11 @@ export function trackedFactory(fn, prop = 'created') {
  * The first is that simply inserting `Object.freeze(this)` at the end
  * of the constructor means that properties can no longer be added to
  * the class, including by a sub-class. If that is the desired behavior,
- * then use that solution and not this one. This implementation only
- * calls `Object.freeze(this)` within the constructor of the class that
- * has `new` put in front of it, so parent class constructors will not
- * call it and only the final child class constructor will.
+ * then use `final` instead (because that's exactly what `final` does).
+ * This implementation only calls `Object.freeze(this)` within the
+ * constructor of the class that has `new` put in front of it, so parent
+ * class constructors will not call it and only the final child class
+ * constructor will.
  *
  * The second problem is that of error messages. Since the class that
  * this function returns is actually a subclass of the one passed in,
@@ -106,8 +107,9 @@ export function trackedFactory(fn, prop = 'created') {
  * identifier. Just take care if you go changing things that you don't
  * break the security with `eval`.
  *
- * @param {typeof Class} Class
- * @returns {typeof Class}
+ * @param {typeof Class} Class The class to be frozen.
+ * @returns {typeof Class} A version of the class whose properties
+ *     cannot be changed.
  */
 export function frozen(Class) {
   const name = identifier.test(Class.name) ? Class.name : 'Frozen'
@@ -122,8 +124,40 @@ export function frozen(Class) {
   }`)(Class)
 }
 
-export function nullClass() {
-  class NullClass {}
-  Object.setPrototypeOf(NullClass.prototype, null)
-  return NullClass
+/**
+ * Creates a new, final class based on the original class passed into
+ * the function.
+ *
+ * This function is very much like `frozen`, except that it also does
+ * not allow properties to be added through class extension. All other
+ * bits of reasoning (in particular, using `eval` so that the class's
+ * name will be right) and explanations of the use of `eval` are the
+ * same.
+ *
+ * Note that this does not prevent the creation of derived classes. It
+ * simply disallows instantiated *objects* from changing anything. Even
+ * a class that adds properties can still be defined; it'll simply throw
+ * an error when an attempt is made to instantiate it.
+ *
+ * @param {typeof Class} Class The class to be finalized.
+ * @returns {typeof Class} A version of the class whose properties
+ *     cannot be changed, including via class extension.
+ */
+export function final(Class) {
+  const name = identifier.test(Class.name) ? Class.name : 'Final'
+
+  return eval(`Class => class ${name} extends Class {
+    constructor(...args) {
+      super(...args)
+      Object.freeze(this)
+    }
+  }`)(Class)
 }
+
+/**
+ * A class without a prototype. This is essentially the class equivalent
+ * of `Object.create(null)`. If extended, the child class will not have
+ * the normal `Object` properties (`toString`, `keys`, etc.).
+ */
+export class NullClass {}
+Object.setPrototypeOf(NullClass.prototype, null)
