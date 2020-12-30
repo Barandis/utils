@@ -161,3 +161,45 @@ export function final(Class) {
  */
 export class NullClass {}
 Object.setPrototypeOf(NullClass.prototype, null)
+
+/**
+ * An object that represents nothing, except in a way that has some
+ * advantages over `null` and `undefined`.
+ *
+ * This object has only four properties, none of which are enumerable
+ * (i.e., they won't show up if you do a `for (const prop in Nothing)`
+ * or an `Object.keys(Nothing)` or similar). These properties are meant
+ * to be called only by the engine and not by a user, with the possible
+ * exception of `toString`, which returns the string `"Nothing"`.
+ *
+ * If any `other` property is accessed, it will return `Nothing`.
+ * `Nothing` can also be called like a function; predictably, it returns
+ * `Nothing` no matter what arguments are passed in.
+ *
+ * The end result is a value that can be chained either through property
+ * access or function invocation and still result ultimately in
+ * `Nothing`. This isn't dissimilar to the optional chaining syntax, but
+ * it doesn't require a different syntax to work.
+ *
+ * ### Example
+ *
+ * ```javascript
+ * const start = Nothing
+ * const result = start.a.b[2].map(x => x + 1)[''](1)(5).x().y
+ * console.log(result)  // Nothing
+ */
+export const Nothing = (() => {
+  const fn = () => Nothing
+  const props = {
+    toString: () => 'Nothing',
+    toLocaleString: () => 'Nothing',
+    valueOf: () => undefined,
+    [Symbol.toPrimitive]: () => undefined,
+  }
+
+  return new Proxy(Object.freeze(fn), {
+    get: (obj, key) => Object.hasOwnProperty.call(props, key)
+      ? props[key]
+      : Nothing,
+  })
+})()

@@ -5,7 +5,9 @@
 
 import { expect } from 'chai'
 
-import { final, frozen, NullClass, trackedFactory } from 'modules/objects'
+import {
+  final, frozen, Nothing, NullClass, trackedFactory,
+} from 'modules/objects'
 
 describe('Object functions', () => {
   describe('trackedFactory', () => {
@@ -129,6 +131,41 @@ describe('Object functions', () => {
       class TestNull extends NullClass {}
       expect(new Test()).to.respondTo('toString')
       expect(new TestNull()).not.to.respondTo('toString')
+    })
+  })
+
+  describe('Nothing', () => {
+    it('is an object with no enumerable properties', () => {
+      expect(Object.keys(Nothing)).to.deep.equal([])
+    })
+    it('returns expected values for its four defined properties', () => {
+      expect(Nothing.toString()).to.equal('Nothing')
+      expect(Nothing.toLocaleString()).to.equal('Nothing')
+      expect(Nothing.valueOf()).to.be.undefined
+      expect(Nothing[Symbol.toPrimitive]()).to.be.undefined
+    })
+    it('returns Nothing from any other property read', () => {
+      expect(Nothing.a).to.equal(Nothing)
+      expect(Nothing.keys).to.equal(Nothing)
+      expect(Nothing['some-prop']).to.equal(Nothing)
+      expect(Nothing[Symbol.iterator]).to.equal(Nothing)
+    })
+    it('returns Nothing from any array access', () => {
+      expect(Nothing[0]).to.equal(Nothing)
+      expect(Nothing[16777216]).to.equal(Nothing)
+      expect(Nothing[-1]).to.equal(Nothing)
+    })
+    it('returns Nothing from any function invocation', () => {
+      expect(Nothing()).to.equal(Nothing)
+      expect(Nothing(1, 2, 3)).to.equal(Nothing)
+      expect(Nothing(x => x + 1)).to.equal(Nothing)
+      expect(Nothing(1)(2)).to.equal(Nothing)
+      expect(Nothing(...[1, 2, 3])).to.equal(Nothing)
+    })
+    it('allows chaining of all of these to always produce Nothing', () => {
+      const start = Nothing
+      const result = start.a.b[2].map(x => x + 1)[''](1)(5).x().y
+      expect(result).to.equal(Nothing)
     })
   })
 })
