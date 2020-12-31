@@ -187,6 +187,7 @@ Object.setPrototypeOf(NullClass.prototype, null)
  * const start = Nothing
  * const result = start.a.b[2].map(x => x + 1)[''](1)(5).x().y
  * console.log(result)  // Nothing
+ * ```
  */
 export const Nothing = (() => {
   const fn = () => Nothing
@@ -198,8 +199,6 @@ export const Nothing = (() => {
   }
 
   return new Proxy(Object.freeze(fn), {
-    get: (obj, key) => Object.hasOwnProperty.call(props, key)
-      ? props[key]
-      : Nothing,
+    get: (_, k) => Object.hasOwnProperty.call(props, k) ? props[k] : Nothing,
   })
 })()
