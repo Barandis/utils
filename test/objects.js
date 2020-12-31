@@ -6,7 +6,7 @@
 import { expect } from 'chai'
 
 import {
-  final, frozen, Nothing, NullClass, trackedFactory,
+  final, frozen, Nothing, NullClass, tracked,
 } from 'modules/objects'
 
 describe('Object functions', () => {
@@ -14,25 +14,25 @@ describe('Object functions', () => {
     const factory = (a, b) => ({ a, b })
 
     it('returns a function that produces the same objects', () => {
-      const tracked = trackedFactory(factory)
+      const fac = tracked(factory)
       expect(factory(1, 2)).to.deep.equal({ a: 1, b: 2 })
-      expect(tracked(1, 2)).to.deep.equal({ a: 1, b: 2 })
+      expect(fac(1, 2)).to.deep.equal({ a: 1, b: 2 })
     })
     it('adds a `created` method to the factory', () => {
-      const tracked = trackedFactory(factory)
-      expect(tracked.created).to.be.a('function')
+      const fac = tracked(factory)
+      expect(fac.created).to.be.a('function')
     })
     it('can add a method of a different name', () => {
-      const tracked = trackedFactory(factory, 'made')
-      expect(tracked.made).to.be.a('function')
+      const fac = tracked(factory, 'made')
+      expect(fac.made).to.be.a('function')
     })
     it('can use added method to see if the factory created an object', () => {
-      const tracked = trackedFactory(factory)
+      const fac = tracked(factory)
       const notCreated = factory(1, 2)
-      const created = tracked(1, 2)
+      const created = fac(1, 2)
       expect(created).to.deep.equal(notCreated)
-      expect(tracked.created(created)).to.be.true
-      expect(tracked.created(notCreated)).to.be.false
+      expect(fac.created(created)).to.be.true
+      expect(fac.created(notCreated)).to.be.false
     })
   })
 

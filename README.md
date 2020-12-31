@@ -27,4 +27,4 @@ Name | File | Description
 `pluck` | `collections.js` | Extracts values from object collections by key
 `range` | `ierators.js` | Produces an iterator starting at a number and ending at another
 `scan` | `collections.js` | Like `reduce` but returns all of the intermediate reductions
-`trackedFactory` | `objects.js` | Adds object tracking to a factory function
+`tracked` | `objects.js` | Adds object tracking to a factory function

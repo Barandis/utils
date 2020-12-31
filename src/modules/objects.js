@@ -11,18 +11,18 @@ const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
  *
  * The provided factory function is augmented with a `created` method
  * (the name can be changed by providing a second argument to
- * `trackedFactory`). This method is a function that takes any object
- * and returns a boolean indicating whether the factory function created
- * the object. These objects are weakly stored for lookup, meaning that
- * the storage will not interfere with them being garbage collected if
- * all other references to them are eliminated.
+ * `tracked`). This method is a function that takes any object and
+ * returns a boolean indicating whether the factory function created the
+ * object. These objects are weakly stored for lookup, meaning that the
+ * storage will not interfere with them being garbage collected if all
+ * other references to them are eliminated.
  *
  * The factory must produce an object, not a primitive value, as only
  * objects can be weakly stored in this way.
  *
  * ### Examples
  * ```
- * const createObject = trackedFactory(prop => ({ prop }))
+ * const createObject = tracked(prop => ({ prop }))
  *
  * const tracked = createObject(42) // { prop: 42 }
  * const untracked = { prop: 42 }   // also { prop: 42 }
@@ -34,8 +34,8 @@ const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
  * in turn by another factory, `created` will return `true` from both
  * factories.
  * ```
- * const createObject = trackedFactory(prop => ({ prop }))
- * const createAugmented = trackedFactory((prop, other) => ({
+ * const createObject = tracked(prop => ({ prop }))
+ * const createAugmented = tracked((prop, other) => ({
  *   ...createObject(prop),
  *   other,
  * }))
@@ -58,7 +58,7 @@ const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
  * @returns {function(...*):object} - the same factory function,
  *     augmented with the tracking method.
  */
-export function trackedFactory(fn, prop = 'created') {
+export function tracked(fn, prop = 'created') {
   const creations = new WeakSet()
 
   return Object.defineProperty(
