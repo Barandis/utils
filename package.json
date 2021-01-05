@@ -1,6 +1,6 @@
 {
   "name": "@barandis/utils",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Various utility functions I've come across/made up over the years",
   "main": "index.js",
   "scripts": {

@@ -28,13 +28,13 @@ import * as utils from '@barandis/utils'
 const utils = require('@barandis/utils')
 ```
 
-Alternately, you can import individual modules by adding their names to the end. For example, if you only want to use a function out of the `iterators` module, you can do this:
+Alternately, you can import individual modules by adding `'/modules/<module-name>'` to the end of the package name. For example, if you only want to use a function out of the `iterators` module, you can do this:
 
 ```javascript
 // import syntax
-import * as iterators from '@barandis/utils/iterators'
+import * as iterators from '@barandis/utils/modules/iterators'
 // require syntax
-const iterators = require('@barandis/utils/iterators')
+const iterators = require('@barandis/utils/modules/iterators')
 ```
 
 The module to which each utility belongs is listed in the table of utilities below.
