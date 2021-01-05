@@ -7,7 +7,7 @@ import { expect } from 'chai'
 
 import {
   final, frozen, Nothing, NullClass, tracked,
-} from 'modules/objects'
+} from 'modules/objects.mjs'
 
 describe('Object functions', () => {
   describe('trackedFactory', () => {

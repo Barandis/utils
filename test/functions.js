@@ -5,8 +5,8 @@
 
 import { expect } from 'chai'
 
-import { compose, curry, curryY, flip, pipe } from 'modules/functions'
-import { range } from 'modules/iterators'
+import { compose, curry, curryY, flip, pipe } from 'modules/functions.mjs'
+import { range } from 'modules/iterators.mjs'
 
 const map = (iterable, fn) => Array.from(iterable).map(fn)
 const filter = (iterable, fn) => Array.from(iterable).filter(fn)

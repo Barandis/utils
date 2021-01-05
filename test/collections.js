@@ -5,8 +5,8 @@
 
 import { expect } from 'chai'
 
-import { pluck, scan } from 'modules/collections'
-import { range } from 'modules/iterators'
+import { pluck, scan } from 'modules/collections.mjs'
+import { range } from 'modules/iterators.mjs'
 
 describe('Collection utilities', () => {
   describe('pluck', () => {

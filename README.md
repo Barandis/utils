@@ -15,16 +15,18 @@ Here's a list of the utilities available.
 
 Name | File | Description
 -----|------|------------
-`compose` | `functions.js` | Combines two or more functions into a single function
-`curry` | `functions.js` | Partially applies a function
-`enumerate`| `iterators.js` | Iterates over a collection, returning tuples of the value and its index
-`final` | `objects.js` | Creates a class whose instances cannot be modified
-`flip` | `functions.js` | Reverses the order of parameter lists in a curried function
-`frozen` | `objects.js` | Creates an extensible class whose instances cannot be modified
-`Nothing` | `objects.js` | A chainable object representing nothing
-`NullClass` | `objects.js` | A class that does not extend from `Object`
-`pipe` | `functions.js` | Composes functions in reverse order from `compose`
-`pluck` | `collections.js` | Extracts values from object collections by key
-`range` | `ierators.js` | Produces an iterator starting at a number and ending at another
-`scan` | `collections.js` | Like `reduce` but returns all of the intermediate reductions
-`tracked` | `objects.js` | Adds object tracking to a factory function
+`compose` | `functions.mjs` | Combines two or more functions into a single function
+`curry` | `functions.mjs` | Partially applies a function
+`enumerate`| `iterators.mjs` | Iterates over a collection, returning tuples of the value and its index
+`final` | `objects.mjs` | Creates a class whose instances cannot be modified
+`flip` | `functions.mjs` | Reverses the order of parameter lists in a curried function
+`frozen` | `objects.mjs` | Creates an extensible class whose instances cannot be modified
+`Nothing` | `objects.mjs` | A chainable object representing nothing
+`NullClass` | `objects.mjs` | A class that does not extend from `Object`
+`ordinal` | `numbers.mjs` | Appends a number with `'st'`, `'nd'`, `'rd'`, or `'th'` as appropriate
+`pipe` | `functions.mjs` | Composes functions in reverse order from `compose`
+`pluck` | `collections.mjs` | Extracts values from object collections by key
+`range` | `ierators.mjs` | Produces an iterator starting at a number and ending at another
+`scan` | `collections.mjs` | Like `reduce` but returns all of the intermediate reductions
+`tracked` | `objects.mjs` | Adds object tracking to a factory function
+`wordinal` | `numbers.mjs` | Turns a number into a word-based ordinal number

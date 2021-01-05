@@ -5,7 +5,7 @@
 
 import { expect } from 'chai'
 
-import { enumerate, range } from 'modules/iterators'
+import { enumerate, range } from 'modules/iterators.mjs'
 
 describe('Iterator functions', () => {
   describe('enumerate', () => {
