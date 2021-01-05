@@ -7,8 +7,7 @@
 
 const { expect } = require('chai')
 
-const { pluck, scan } = require('../modules/collections')
-const { range } = require('../modules/iterators')
+const { pluck, range, scan } = require('..')
 
 describe('Collection utilities', () => {
   describe('pluck', () => {

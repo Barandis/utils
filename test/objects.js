@@ -7,9 +7,7 @@
 
 const { expect } = require('chai')
 
-const {
-  final, frozen, Nothing, NullClass, tracked,
-} = require('../modules/objects')
+const { final, frozen, Nothing, NullClass, tracked } = require('..')
 
 describe('Object functions', () => {
   describe('trackedFactory', () => {

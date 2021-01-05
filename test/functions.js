@@ -7,8 +7,7 @@
 
 const { expect } = require('chai')
 
-const { compose, curry, curryY, flip, pipe } = require('../modules/functions')
-const { range } = require('../modules/iterators')
+const { compose, curry, curryY, flip, pipe, range } = require('..')
 
 const map = (iterable, fn) => Array.from(iterable).map(fn)
 const filter = (iterable, fn) => Array.from(iterable).filter(fn)

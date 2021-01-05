@@ -7,7 +7,7 @@
 
 const { expect } = require('chai')
 
-const { ordinal, wordinal } = require('../modules/numbers')
+const { ordinal, wordinal } = require('..')
 
 describe('Number utilities', () => {
   describe('ordinal', () => {

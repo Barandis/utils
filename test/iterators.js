@@ -7,7 +7,7 @@
 
 const { expect } = require('chai')
 
-const { enumerate, range } = require('../modules/iterators')
+const { enumerate, range } = require('..')
 
 describe('Iterator functions', () => {
   describe('enumerate', () => {
