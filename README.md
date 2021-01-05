@@ -11,6 +11,36 @@ This is simply a library of small dependency-free utility functions. It's meant 
 
 I'm not planning on providing any documentation short of what's on this page, but there are extensive doc comments, and the unit tests probably provide the best documentation of all.
 
+## Installation
+
+If you want to install the package, get it from npm.
+
+```
+npm install --save @barandis/utils
+```
+
+Once you do, you can `import` or `require` directly from `@barandis/utils` as normal.
+
+```javascript
+// import syntax
+import * as utils from '@barandis/utils'
+// require syntax
+const utils = require('@barandis/utils')
+```
+
+Alternately, you can import individual modules by adding their names to the end. For example, if you only want to use a function out of the `iterators` module, you can do this:
+
+```javascript
+// import syntax
+import * as iterators from '@barandis/utils/iterators'
+// require syntax
+const iterators = require('@barandis/utils/iterators')
+```
+
+The module to which each utility belongs is listed in the table of utilities below.
+
+## Utilities
+
 Here's a list of the utilities available.
 
 Name | Module | Description
