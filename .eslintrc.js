@@ -1,3 +1,5 @@
+'use strict'
+
 const OFF = 0
 const ERROR = 2
 
@@ -11,18 +13,11 @@ module.exports = {
   globals: {
     ASSERT: 'readonly',
   },
-  extends: ['eslint:recommended', 'plugin:import/errors'],
-  parser: 'babel-eslint',
+  extends: ['eslint:recommended'],
+  parser: '@babel/eslint-parser',
+  plugins: ['@babel'],
   parserOptions: {
-    sourceType: 'module',
-  },
-  plugins: ['import'],
-  settings: {
-    'import/resolver': {
-      webpack: {
-        config: 'webpack.common.js',
-      },
-    },
+    sourceType: 'script',
   },
   rules: {
     // Possible Errors
@@ -173,18 +168,5 @@ module.exports = {
     'rest-spread-spacing': [ERROR],
     'template-curly-spacing': [ERROR],
     'yield-star-spacing': [ERROR],
-
-    // Import plugin
-    'import/no-absolute-path': [ERROR],
-    'import/no-webpack-loader-syntax': [ERROR],
-    'import/no-self-import': [ERROR],
-    'import/no-useless-path-segments': [ERROR],
-
-    'import/no-named-as-default-member': [ERROR],
-
-    'import/first': [ERROR],
-    'import/no-duplicates': [ERROR],
-    'import/no-namespace': [ERROR],
-    'import/order': [ERROR, { 'newlines-between': 'always' }],
   },
 }

@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+'use strict'
+
 const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
 
 /**
@@ -58,7 +60,7 @@ const identifier = /^[$_\p{ID_Start}][$_\u200c\u200d\p{ID_Continue}]*$/u
  * @returns {function(...*):object} - the same factory function,
  *     augmented with the tracking method.
  */
-export function tracked(fn, prop = 'created') {
+function tracked(fn, prop = 'created') {
   const creations = new WeakSet()
 
   return Object.defineProperty(
@@ -111,7 +113,7 @@ export function tracked(fn, prop = 'created') {
  * @returns {typeof Class} A version of the class whose properties
  *     cannot be changed.
  */
-export function frozen(Class) {
+function frozen(Class) {
   const name = identifier.test(Class.name) ? Class.name : 'Frozen'
 
   return eval(`Class => class ${name} extends Class {
@@ -143,7 +145,7 @@ export function frozen(Class) {
  * @returns {typeof Class} A version of the class whose properties
  *     cannot be changed, including via class extension.
  */
-export function final(Class) {
+function final(Class) {
   const name = identifier.test(Class.name) ? Class.name : 'Final'
 
   return eval(`Class => class ${name} extends Class {
@@ -159,7 +161,7 @@ export function final(Class) {
  * of `Object.create(null)`. If extended, the child class will not have
  * the normal `Object` properties (`toString`, `keys`, etc.).
  */
-export class NullClass {}
+class NullClass {}
 Object.setPrototypeOf(NullClass.prototype, null)
 
 /**
@@ -189,7 +191,7 @@ Object.setPrototypeOf(NullClass.prototype, null)
  * console.log(result)  // Nothing
  * ```
  */
-export const Nothing = (() => {
+const Nothing = (() => {
   const fn = () => Nothing
   const props = {
     toString: () => 'Nothing',
@@ -202,3 +204,5 @@ export const Nothing = (() => {
     get: (_, k) => Object.hasOwnProperty.call(props, k) ? props[k] : Nothing,
   })
 })()
+
+module.exports = { Nothing, NullClass, final, frozen, tracked }

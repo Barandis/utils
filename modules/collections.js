@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+'use strict'
+
 /**
  * Reduces a collection, returning all of the intermediate reduction
  * values. This is the same as a `reduce` function except that it
@@ -19,7 +21,7 @@
  *     reducer function. This array will have one element for each time
  *     the reducer function was executed.
  */
-export const scan = (iterable, reducer, initial) => {
+const scan = (iterable, reducer, initial) => {
   const values = []
 
   Array.from(iterable).reduce((acc, value) => {
@@ -39,8 +41,10 @@ export const scan = (iterable, reducer, initial) => {
  * @param {symbol|string} key
  * @returns {*[]}
  */
-export const pluck = (iterable, key) =>
+const pluck = (iterable, key) =>
   Array.from(iterable).reduce((acc, value) => {
     acc.push(value[key])
     return acc
   }, [])
+
+module.exports = { pluck, scan }

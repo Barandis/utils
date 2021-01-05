@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+'use strict'
+
 /**
  * Produces a curried function out of a regular function.
  *
@@ -37,7 +39,7 @@
  *     than specified in `fn`, returns another function that takes the
  *     *rest* of the arguments.
  */
-export const curry = fn => function curried(...args) {
+const curry = fn => function curried(...args) {
   return args.length >= fn.length
     ? fn(...args)
     : (...rest) => curried(...args, ...rest)
@@ -123,7 +125,7 @@ export const curry = fn => function curried(...args) {
  *     than specified in `fn`, returns another function that takes the
  *     *rest* of the arguments.
  */
-export const curryY = fn =>
+const curryY = fn =>
   (f => (x => x(x))(m => (...a) => f(m(m), ...a)))((rfn, ...args) =>
     args.length >= fn.length ? fn(...args) : (...rest) => rfn(...args, ...rest))
 
@@ -163,7 +165,7 @@ export const curryY = fn =>
  * @returns {function} A curried function of two parameter sets whose
  *     sets are in reverse order of the original function.
  */
-export const flip = fn => (...a) => (...b) => fn(...b)(...a)
+const flip = fn => (...a) => (...b) => fn(...b)(...a)
 
 /**
  * Combines two or more single-parameter functions into one
@@ -179,7 +181,7 @@ export const flip = fn => (...a) => (...b) => fn(...b)(...a)
  * @returns {function} A single function that is the composition of all
  *     of the provided functions.
  */
-export const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x)
+const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x)
 
 /**
  * Combines two or more single-parameter functions into one
@@ -199,4 +201,6 @@ export const compose = (...fns) => x => fns.reduceRight((y, f) => f(y), x)
  *     of the provided functions, but with the order of execution
  *     reversed..
  */
-export const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
+const pipe = (...fns) => x => fns.reduce((y, f) => f(y), x)
+
+module.exports = { compose, curry, curryY, flip, pipe }

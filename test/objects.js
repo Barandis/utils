@@ -3,11 +3,13 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { expect } from 'chai'
+'use strict'
 
-import {
+const { expect } = require('chai')
+
+const {
   final, frozen, Nothing, NullClass, tracked,
-} from 'modules/objects.mjs'
+} = require('../modules/objects')
 
 describe('Object functions', () => {
   describe('trackedFactory', () => {

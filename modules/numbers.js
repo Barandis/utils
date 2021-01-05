@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+'use strict'
+
 /**
  * Converts a number to its string ordinal form (i.e., `1` becomes
  * `'1st'`, `1729` becomes `'1729th'`, etc.).
@@ -10,7 +12,7 @@
  * @param {number} n The number to convert into an ordinal.
  * @returns {string} The same number in its ordinal form.
  */
-export function ordinal(n) {
+function ordinal(n) {
   const suffixes = ['th', 'st', 'nd', 'rd']
   const v = n % 100
   return n + (suffixes[(v - 20) % 10] ?? suffixes[v] ?? suffixes[0])
@@ -24,7 +26,7 @@ export function ordinal(n) {
  * @param {number} n The number to convert into an ordinal.
  * @returns {string} The same number in its word-based ordinal form.
  */
-export function wordinal(n) {
+function wordinal(n) {
   if (n < 0 || n > Number.MAX_SAFE_INTEGER) {
     throw new Error(`Argument must be between 0 and ${Number.MAX_SAFE_INTEGER}`)
   }
@@ -80,3 +82,5 @@ export function wordinal(n) {
   const x = n - f * 10 ** (mag - g + 1)
   return `${m} ${groups[i]}${x === 0 ? 'th' : ` ${wordinal(x)}`}`
 }
+
+module.exports = { ordinal, wordinal }

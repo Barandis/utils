@@ -3,6 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
+'use strict'
+
 /**
  * An implementation of Python's `enumerate` function.
  *
@@ -24,7 +26,7 @@
  * @yields {[number, T]} A tuple of the index of a value in the iterable
  *     and the value itself.
  */
-export function *enumerate(iterable, start = 0) {
+function *enumerate(iterable, start = 0) {
   const iterator = iterable[Symbol.iterator]()
   let result = iterator.next()
   let index = Math.trunc(start)
@@ -106,7 +108,7 @@ export function *enumerate(iterable, start = 0) {
  *     included as part of the range.
  * @yields {number} The values that make up the range.
  */
-export function *range(start, end, step, inclusive) {
+function *range(start, end, step, inclusive) {
   const s = typeof end === 'number' ? start : 0
   const e = typeof end === 'number' ? end : start
   const p = typeof step === 'number' ? step === 0 ? 1 : Math.abs(step) : 1
@@ -133,3 +135,5 @@ export function *range(start, end, step, inclusive) {
   }
   /* eslint-enable require-atomic-updates */
 }
+
+module.exports = { enumerate, range }

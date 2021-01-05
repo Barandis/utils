@@ -3,9 +3,11 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { expect } from 'chai'
+'use strict'
 
-import { enumerate, range } from 'modules/iterators.mjs'
+const { expect } = require('chai')
+
+const { enumerate, range } = require('../modules/iterators')
 
 describe('Iterator functions', () => {
   describe('enumerate', () => {

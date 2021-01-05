@@ -3,10 +3,12 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-import { expect } from 'chai'
+'use strict'
 
-import { pluck, scan } from 'modules/collections.mjs'
-import { range } from 'modules/iterators.mjs'
+const { expect } = require('chai')
+
+const { pluck, scan } = require('../modules/collections')
+const { range } = require('../modules/iterators')
 
 describe('Collection utilities', () => {
   describe('pluck', () => {
