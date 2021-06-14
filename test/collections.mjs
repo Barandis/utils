@@ -3,11 +3,9 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-'use strict'
-
-const { expect } = require('chai')
-
-const { pluck, range, scan } = require('..')
+import { expect } from 'chai'
+import { pluck, scan } from '../modules/collections.mjs'
+import { range } from '../modules/iterators.mjs'
 
 describe('Collection utilities', () => {
   describe('pluck', () => {
@@ -22,7 +20,7 @@ describe('Collection utilities', () => {
       expect(pluck(objs, 'c')).to.deep.equal([3, 6, 9])
     })
     it('works with non-array iterables', () => {
-      function *test() {
+      function* test() {
         yield { a: 1, b: 2, c: 3 }
         yield { a: 4, b: 5, c: 6 }
         yield { a: 7, c: 9 }

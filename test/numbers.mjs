@@ -3,11 +3,8 @@
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-'use strict'
-
-const { expect } = require('chai')
-
-const { ordinal, wordinal } = require('..')
+import { expect } from 'chai'
+import { ordinal, wordinal } from '../modules/numbers.mjs'
 
 describe('Number utilities', () => {
   describe('ordinal', () => {
@@ -152,16 +149,14 @@ describe('Number utilities', () => {
     })
     it('returns the word ordinal for multiple higher groups', () => {
       expect(wordinal(1100)).to.equal('one thousand one hundredth')
-      expect(wordinal(2160000)).to.equal(
-        'two million one hundred sixty thousandth',
-      )
+      expect(wordinal(2160000)).to.equal('two million one hundred sixty thousandth')
       expect(wordinal(32010002400)).to.equal(
         'thirty-two billion ten million two thousand four hundredth',
       )
       expect(wordinal(Number.MAX_SAFE_INTEGER)).to.equal(
-        'nine quadrillion seven trillion one hundred ninety-nine billion '
-          + 'two hundred fifty-four million seven hundred forty thousand '
-          + 'nine hundred ninety-first',
+        'nine quadrillion seven trillion one hundred ninety-nine billion ' +
+          'two hundred fifty-four million seven hundred forty thousand ' +
+          'nine hundred ninety-first',
       )
     })
   })

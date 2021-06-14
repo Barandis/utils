@@ -1,13 +1,12 @@
+/* eslint-disable no-unused-expressions */
+/* eslint-disable max-classes-per-file */
 // Copyright (c) 2020 Thomas J. Otterson
 //
 // This software is released under the MIT License.
 // https://opensource.org/licenses/MIT
 
-'use strict'
-
-const { expect } = require('chai')
-
-const { final, frozen, Nothing, NullClass, tracked } = require('..')
+import { expect } from 'chai'
+import { final, frozen, Nothing, NullClass, tracked } from '../modules/objects.mjs'
 
 describe('Object functions', () => {
   describe('trackedFactory', () => {
@@ -37,12 +36,14 @@ describe('Object functions', () => {
   })
 
   describe('frozen', () => {
-    const Point2d = frozen(class Point2d {
-      constructor(x, y) {
-        this.x = x
-        this.y = y
-      }
-    })
+    const Point2d = frozen(
+      class Point2d {
+        constructor(x, y) {
+          this.x = x
+          this.y = y
+        }
+      },
+    )
 
     it('creates a class whose properties are frozen', () => {
       const p = new Point2d(1, 2)
@@ -65,12 +66,14 @@ describe('Object functions', () => {
       expect(() => (p.x = 42)).not.to.throw()
     })
     it('can create classes that extend from other frozen classes', () => {
-      const Point3d = frozen(class Point3d extends Point2d {
-        constructor(x, y, z) {
-          super(x, y)
-          this.z = z
-        }
-      })
+      const Point3d = frozen(
+        class Point3d extends Point2d {
+          constructor(x, y, z) {
+            super(x, y)
+            this.z = z
+          }
+        },
+      )
       const p = new Point3d(1, 2, 3)
       expect(p.z).to.equal(3)
       expect(() => (p.z = 42)).to.throw() // modify child property
@@ -87,12 +90,14 @@ describe('Object functions', () => {
   })
 
   describe('final', () => {
-    const Point2d = final(class Point2d {
-      constructor(x, y) {
-        this.x = x
-        this.y = y
-      }
-    })
+    const Point2d = final(
+      class Point2d {
+        constructor(x, y) {
+          this.x = x
+          this.y = y
+        }
+      },
+    )
 
     it('creates a class whose properties are frozen', () => {
       const p = new Point2d(1, 2)
@@ -164,7 +169,10 @@ describe('Object functions', () => {
     })
     it('allows chaining of all of these to always produce Nothing', () => {
       const start = Nothing
-      const result = start.a.b[2].map(x => x + 1)[''](1)(5).x().y
+      const result = start.a.b[2]
+        .map(x => x + 1)
+        [''](1)(5)
+        .x().y
       expect(result).to.equal(Nothing)
     })
   })
